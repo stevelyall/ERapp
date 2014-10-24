@@ -1,4 +1,4 @@
 ERapp
 =====
 
-Research questionnaire for psychology research
+Emotion regulation questionnaire for psychology research
