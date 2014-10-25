@@ -1,0 +1,8 @@
+package ca.stevenlyall.ersurvey;
+
+// has:
+// momentary affect items
+// 
+public class Survey {
+
+}

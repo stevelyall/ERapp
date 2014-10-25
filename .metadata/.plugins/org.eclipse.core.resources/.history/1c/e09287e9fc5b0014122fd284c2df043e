@@ -1,0 +1,27 @@
+package ca.stevenlyall.ersurvey;
+
+public class Question {
+
+	private String question;
+	private float response;
+	
+	public Question(String q) {
+		setQuestion(q);
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public float getResponse() {
+		return response;
+	}
+
+	public void setResponse(float response) {
+		this.response = response;
+	}
+}

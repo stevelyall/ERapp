@@ -14,7 +14,9 @@ public class Survey {
 								   "At the moment I feel stressed",
 								   "At the moment I feel anxious",
 								   "At the moment I feel depressed"
-								   };
+								    };
+	private String maLowScale = "Not at all";
+	private String maHighScale = "Very much";
 	private String[] maCodes = {"happy", "relaxed", "angry", "stressed", "anxious", "depressed"};
 	private float[] maResponses = new float[6];
 	
@@ -29,6 +31,8 @@ public class Survey {
 									  "Since the previous signal I have come up with ideas to fix or change the problem that caused my feelings",
 									  "Since the previous signal I have pushed my feelings down or put them out of my mind"				
 									};
+	private String erLowScale = "Not at all";
+	private String erHighScale = "A lot";
 	private String[] erCodes = {"acceptance", "reappraisal", "self-criticism", "rumination", "social sharing", "expression suppression", "distraction", "problem-solving", "feeling suppression"}; 
 	private float[] erResponses = new float[9];
 	
@@ -37,7 +41,38 @@ public class Survey {
 									   "Since the last signal, I have wanted my unpleasant feelings to…",
 									   "Since the last signal, I have wanted to control my feelings so that I can achieve some other goal"
 	 								  };
+	private String motivLowScale = "Decrease a lot";
+	private String motivMedScale = "Stay the same";
+	private String motivHighScale = "Increase a lot";
+	
 	private String[] motivCodes = {"pleasant", "unpleasant", "control"};
+	public String getMaLowScale() {
+		return maLowScale;
+	}
+
+	public String getMaHighScale() {
+		return maHighScale;
+	}
+
+	public String getErLowScale() {
+		return erLowScale;
+	}
+
+	public String getErHighScale() {
+		return erHighScale;
+	}
+
+	public String getMotivLowScale() {
+		return motivLowScale;
+	}
+
+	public String getMotivMedScale() {
+		return motivMedScale;
+	}
+
+	public String getMotivHighScale() {
+		return motivHighScale;
+	}
 	private float[] motivResponses = new float[3];
 	
 	

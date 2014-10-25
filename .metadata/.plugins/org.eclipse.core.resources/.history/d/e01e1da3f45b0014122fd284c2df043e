@@ -1,0 +1,23 @@
+package ca.stevenlyall.ersurvey;
+
+// has:
+// momentary affect items
+// 
+public class Survey {
+
+	private Question[] maItems;
+	private Question[] erItems;
+	private Question[] motivItems;
+	
+	public Survey() {
+		maItems[0].setQuestion("At the moment I feel happy");
+		maItems[1].setQuestion("At the moment I feel relaxed");
+		maItems[2].setQuestion("At the moment I feel angry");
+		maItems[3].setQuestion("At the moment I feel stressed");
+		maItems[4].setQuestion("At the moment I feel anxious");
+		maItems[5].setQuestion("At the moment I feel depressed");
+		
+		//eritems[0].setQuestion
+				
+	}
+}

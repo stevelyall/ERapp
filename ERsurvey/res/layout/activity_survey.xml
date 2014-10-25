@@ -32,9 +32,29 @@
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/lowDesc"
         android:layout_centerHorizontal="true"
+        android:indeterminate="false"
+        android:numStars="6"
+        android:stepSize="1.0" />
+
+    <TextView
+        android:id="@+id/highDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rating"
+        android:layout_toRightOf="@+id/rating"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/lowDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:indeterminate="false" />
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/questionTextView"
@@ -42,7 +62,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="@string/hello_world" />
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/hello_world"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/medDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/questionTextView"
+        android:layout_below="@+id/rating"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
