@@ -1,0 +1,7 @@
+package ca.stevenlyall.ersurvey;
+
+import android.app.Activity;
+
+public class FinishActivity extends Activity {
+
+}

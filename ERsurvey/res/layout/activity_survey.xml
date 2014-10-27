@@ -8,7 +8,9 @@
     <TableRow
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" >
+
     </TableRow>
 
     <TableRow
@@ -82,8 +84,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/AntiqueWhite" >
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/nextButton"

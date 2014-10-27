@@ -86,12 +86,12 @@ public class Survey {
 		return maQuestions[i];
 	}
 	
-	public String getMACode(int i) {
-		return maCodes[i];
+	public String[] getMACodes() {
+		return maCodes;
 	}
 	
-	public float getMAResponse(int i) {
-		return maResponses[i];
+	public float[] getMAResponses() {
+		return maResponses;
 	}
 	
 	public void setMAResponse(int i, float value) {
@@ -103,12 +103,12 @@ public class Survey {
 		return erQuestions[i];
 	}
 	
-	public String getERCode(int i) {
-		return erCodes[i];
+	public String[] getERCodes() {
+		return erCodes;
 	}
 	
-	public float getERResponse(int i) {
-		return erResponses[i];
+	public float[] getERResponses() {
+		return erResponses;
 	}
 	public void setERResponse(int i, float value) {
 		erResponses[i] = value;
@@ -119,12 +119,12 @@ public class Survey {
 		return motivQuestions[i];
 	}
 	
-	public String getMotivCode(int i) {
-		return motivCodes[i];
+	public String[] getMotivCodes() {
+		return motivCodes;
 	}
 	
-	public float getMotivResponse(int i) {
-		return motivResponses[i];
+	public float[] getMotivResponses() {
+		return motivResponses;
 	}
 		public void setMotivResponse(int i, float value) {
 		motivResponses[i] = value;

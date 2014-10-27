@@ -6,5 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="back">Back</string>
     <string name="next">Next</string>
+    <string name="finish">Finish</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="quit">Quit</string>
 
 </resources>

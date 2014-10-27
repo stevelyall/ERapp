@@ -1,7 +1,15 @@
 package ca.stevenlyall.ersurvey;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +49,7 @@ public class SurveyActivity extends Activity {
 		highScale = (TextView) findViewById(R.id.highDesc);
 
 		askMA();
-		
+
 	}
 
 	private void askMA() {
@@ -82,10 +90,6 @@ public class SurveyActivity extends Activity {
 					}
 
 					survey.setMAResponse(questionNum, rating.getRating());
-					Log.i("survey",
-							survey.getMACode(questionNum)
-									+ " response collected: "
-									+ survey.getMAResponse(questionNum));
 					questionNum++;
 					rating.setRating(0);
 					askMA();
@@ -97,7 +101,7 @@ public class SurveyActivity extends Activity {
 	}
 
 	private void askER() {
-		
+
 		answered = false;
 		Log.i("answered", "false");
 
@@ -129,13 +133,12 @@ public class SurveyActivity extends Activity {
 				public void onClick(View v) {
 					if (!answered) {
 						Toast.makeText(getBaseContext(),
-								"Please select an answer", Toast.LENGTH_SHORT).show();
+								"Please select an answer", Toast.LENGTH_SHORT)
+								.show();
 						return;
 					}
 
 					survey.setERResponse(questionNum, rating.getRating());
-					Log.i("survey",
-							survey.getERCode(questionNum) + " response collected: " + survey.getERResponse(questionNum));
 					questionNum++;
 					rating.setRating(0);
 					askER();
@@ -145,22 +148,41 @@ public class SurveyActivity extends Activity {
 
 		}
 	}
-private void askMotiv() {
-		
+
+	private void askMotiv() {
+
 		answered = false;
 		Log.i("answered", "false");
 
 		lowScale.setText(survey.getMotivLowScale());
 		medScale.setText(survey.getMotivMedScale());
-		highScale.setText(survey.getMotivHighScale());
+		highScale.setText(survey.getErHighScale());
 		rating.setNumStars(10);
-		if (questionNum > 5) {
+		rating.setStepSize(1.0f);
+		if (questionNum == 2) {
+			nextButton.setText(R.string.finish);
+
+		}
+		if (questionNum > 2) {
 			Log.w("survey", "all Motiv questions have been asked, questionNum="
 					+ questionNum);
+			questionNum = 0;
+			finishSurvey();
+
+			nextButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finishSurvey();
+					Intent quit = new Intent(getBaseContext(),
+							QuitActivity.class);
+					startActivity(quit);
+					finish();
+				}
+			});
 			return;
 		} else {
 			questionTextView.setText(survey.getMotivQuestion(questionNum));
-
+			Log.i("qnum", "question" + questionNum);
 			rating.setOnTouchListener(new OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
@@ -176,22 +198,78 @@ private void askMotiv() {
 				public void onClick(View v) {
 					if (!answered) {
 						Toast.makeText(getBaseContext(),
-								"Please select an answer", Toast.LENGTH_SHORT).show();
+								"Please select an answer", Toast.LENGTH_SHORT)
+								.show();
 						return;
 					}
 
 					survey.setMotivResponse(questionNum, rating.getRating());
-					Log.i("survey",
-							survey.getMotivCode(questionNum) + " response collected: " + survey.getMotivResponse(questionNum));
 					questionNum++;
 					rating.setRating(0);
-					Log.i("survey", "done survey items");
-					return;
-				
+					askMotiv();
 				}
 
 			});
 
 		}
+	}
+
+	private void finishSurvey() {
+		try {
+			File filePath = Environment
+					.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+			File f = new File(filePath, "file.txt");
+			FileOutputStream fos;
+			// file exists already, append to it
+			if (f.exists()) {
+				fos = new FileOutputStream(f, true);
+				Log.i("File", "File exists, appending " + fos.toString());
+
+			} else {
+				fos = new FileOutputStream(f);
+				Log.i("File", "File exists, appending " + fos.toString());
+			}
+
+			fos.write("=============\n".getBytes());
+			
+			//timestamp
+			Date date = new Date();
+			Timestamp timestamp = new Timestamp(date.getTime());
+			fos.write((timestamp.toString() + "\n").getBytes());
+			
+			// write MA responses to file
+			fos.write("\nMomentary affect items:\n".getBytes());
+			String[] codes = survey.getMACodes();
+			float[] responses = survey.getMAResponses();
+			for (int i = 0; i < codes.length; i++) {
+				fos.write((codes[i] + ": " + responses[i] + "\n").getBytes());
+			}
+			
+			// write ER responses to file
+			fos.write("\nEmotion regulation items:\n".getBytes());
+			codes = survey.getERCodes();
+			responses = survey.getERResponses();
+			for (int i = 0; i < codes.length; i++) {
+				fos.write((codes[i] + ": " + responses[i] + "\n").getBytes());
+			}
+			// write motivation responses to file
+			fos.write("\nMotivation items:\n".getBytes());
+			codes = survey.getMotivCodes();
+			responses = survey.getMotivResponses();
+			for (int i = 0; i < codes.length; i++) {
+				fos.write((codes[i] + ": " + responses[i] + "\n").getBytes());
+			}
+			
+			fos.write("=============\n".getBytes());
+			Log.i("File", "Finished writing to file");
+			fos.close();
+			Log.i("File", "File closed");
+		} catch (IOException e) {
+			Toast.makeText(this, "Problem writing data file",
+					Toast.LENGTH_SHORT).show();
+			Log.e("file", "couldn't open file for writing", e);
+		}
+
 	}
 }
