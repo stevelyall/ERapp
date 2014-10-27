@@ -6,3 +6,5 @@
 1414292538337	Rename resource 'activity_finish.xml'
 1414292573845	Rename type 'FinishActivity'
 1414380063465	Delete element
+1414424609113	Rename field 'questionTextView'
+1414424685631	Rename field 'quitButton'

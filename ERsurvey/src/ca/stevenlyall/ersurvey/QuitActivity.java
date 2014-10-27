@@ -21,7 +21,7 @@ public class QuitActivity extends Activity {
 	    setContentView(R.layout.activity_quit);
 	    
 	    // button quits app
-	    quitButton = (Button) findViewById(R.id.quitButton);
+	    quitButton = (Button) findViewById(R.id.startButton);
 	    quitButton.setOnClickListener(new OnClickListener() {
 	    	@Override
 			public void onClick(View v) {

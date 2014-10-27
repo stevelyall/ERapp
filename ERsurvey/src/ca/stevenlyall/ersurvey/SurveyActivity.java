@@ -20,9 +20,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// TODO fix if I have time- going back one question, does not restore rating when you go back to new question
 public class SurveyActivity extends Activity {
-
-	// TODO load these from a file
 
 	Survey survey = new Survey();
 	int questionNum = 0;
@@ -43,24 +42,26 @@ public class SurveyActivity extends Activity {
 		rating.setClickable(true);
 		nextButton = (Button) findViewById(R.id.nextButton);
 		backButton = (Button) findViewById(R.id.backButton);
-		questionTextView = (TextView) findViewById(R.id.questionTextView);
+		questionTextView = (TextView) findViewById(R.id.welcome);
 		lowScale = (TextView) findViewById(R.id.lowDesc);
 		medScale = (TextView) findViewById(R.id.medDesc);
 		highScale = (TextView) findViewById(R.id.highDesc);
-
 		askMA();
-
 	}
 
 	private void askMA() {
-		answered = false;
-		Log.i("answered", "false");
+		if (rating.getRating() != 0) {
+			answered = true;
+		} else {
+			answered = false;
+		}
+		Log.i("answered", "false" + questionNum);
 
 		lowScale.setText(survey.getMaLowScale());
 		medScale.setText("");
 		highScale.setText(survey.getMaHighScale());
 
-		if (questionNum > 5) {
+		if (questionNum > survey.getMACodes().length - 1) {
 			Log.w("survey", "all MA questions have been asked, questionNum="
 					+ questionNum);
 			questionNum = 0;
@@ -72,8 +73,9 @@ public class SurveyActivity extends Activity {
 			rating.setOnTouchListener(new OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
+					survey.setMAResponse(questionNum, rating.getRating());
 					answered = true;
-					Log.i("answered", "true");
+					Log.i("answered", "true" + questionNum);
 					return false;
 				}
 
@@ -89,27 +91,52 @@ public class SurveyActivity extends Activity {
 						return;
 					}
 
-					survey.setMAResponse(questionNum, rating.getRating());
 					questionNum++;
-					rating.setRating(0);
+					if (questionNum < survey.getMAResponses().length) {
+						rating.setRating(survey.getMAResponses()[questionNum]);
+					} else {
+						rating.setRating(survey.getMAResponses()[questionNum - 1]);
+					}
 					askMA();
 				}
 
+			});
+			// backButton
+			backButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (questionNum == 0) {
+						Toast.makeText(getBaseContext(),
+								"Can't go back, already at first question",
+								Toast.LENGTH_SHORT).show();
+						Log.i("survey", "can't go back from first question");
+						return;
+					}
+					survey.setMAResponse(questionNum, rating.getRating());
+					questionNum--;
+					rating.setRating(survey.getMAResponses()[questionNum]);
+					answered = true;
+					questionTextView.setText(survey.getMAQuestion(questionNum));
+
+				}
 			});
 
 		}
 	}
 
 	private void askER() {
-
-		answered = false;
-		Log.i("answered", "false");
+		if (rating.getRating() != 0) {
+			answered = true;
+		} else {
+			answered = false;
+		}
+		Log.i("answered", "false" + questionNum);
 
 		lowScale.setText(survey.getErLowScale());
 		medScale.setText("");
 		highScale.setText(survey.getErHighScale());
 
-		if (questionNum > 5) {
+		if (questionNum > survey.getERCodes().length - 1) {
 			Log.w("survey", "all ER questions have been asked, questionNum="
 					+ questionNum);
 			questionNum = 0;
@@ -117,18 +144,19 @@ public class SurveyActivity extends Activity {
 			return;
 		} else {
 			questionTextView.setText(survey.getERQuestion(questionNum));
-
+			rating.setRating(survey.getERResponses()[questionNum]);
 			rating.setOnTouchListener(new OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
+					survey.setERResponse(questionNum, rating.getRating());
 					answered = true;
-					Log.i("answered", "true");
+					Log.i("answered", "true" + questionNum);
 					return false;
 				}
 
 			});
+			// next button
 			nextButton.setOnClickListener(new OnClickListener() {
-
 				@Override
 				public void onClick(View v) {
 					if (!answered) {
@@ -138,37 +166,56 @@ public class SurveyActivity extends Activity {
 						return;
 					}
 
-					survey.setERResponse(questionNum, rating.getRating());
 					questionNum++;
-					rating.setRating(0);
+					if (questionNum < survey.getERResponses().length) {
+						rating.setRating(survey.getERResponses()[questionNum]);
+					} else {
+						rating.setRating(survey.getERResponses()[questionNum - 1]);
+					}
 					askER();
 				}
 
 			});
 
+			// backButton
+			backButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (questionNum == 0) {
+						// back to MA items
+						survey.setERResponse(questionNum, rating.getRating());
+						questionNum = survey.getMACodes().length - 1;
+						answered = true;
+						askMA();
+						return;
+					}
+					survey.setERResponse(questionNum, rating.getRating());
+					questionNum--;
+					rating.setRating(survey.getERResponses()[questionNum]);
+					answered = true;
+					questionTextView.setText(survey.getERQuestion(questionNum));
+
+				}
+			});
 		}
 	}
 
 	private void askMotiv() {
-
-		answered = false;
+		if (rating.getRating() != 0) {
+			answered = true;
+		} else {
+			answered = false;
+		}
 		Log.i("answered", "false");
 
 		lowScale.setText(survey.getMotivLowScale());
 		medScale.setText(survey.getMotivMedScale());
 		highScale.setText(survey.getErHighScale());
+
 		rating.setNumStars(10);
 		rating.setStepSize(1.0f);
 		if (questionNum == 2) {
 			nextButton.setText(R.string.finish);
-
-		}
-		if (questionNum > 2) {
-			Log.w("survey", "all Motiv questions have been asked, questionNum="
-					+ questionNum);
-			questionNum = 0;
-			finishSurvey();
-
 			nextButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -178,20 +225,24 @@ public class SurveyActivity extends Activity {
 					startActivity(quit);
 					finish();
 				}
+
 			});
 			return;
 		} else {
 			questionTextView.setText(survey.getMotivQuestion(questionNum));
+			rating.setRating(survey.getMotivResponses()[questionNum]);
 			Log.i("qnum", "question" + questionNum);
 			rating.setOnTouchListener(new OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
+					survey.setMotivResponse(questionNum, rating.getRating());
 					answered = true;
-					Log.i("answered", "true");
+					Log.i("answered", "true" + questionNum);
 					return false;
 				}
 
 			});
+			// next button
 			nextButton.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -203,14 +254,38 @@ public class SurveyActivity extends Activity {
 						return;
 					}
 
-					survey.setMotivResponse(questionNum, rating.getRating());
 					questionNum++;
-					rating.setRating(0);
+					if (questionNum < survey.getMotivResponses().length) {
+						rating.setRating(survey.getMotivResponses()[questionNum]);
+					} else {
+						rating.setRating(survey.getMotivResponses()[questionNum - 1]);
+					}
 					askMotiv();
 				}
 
 			});
+			// backButton
+			backButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (questionNum == 0) {
+						// back to ER items
+						survey.setMotivResponse(questionNum, rating.getRating());
+						questionNum = survey.getERCodes().length - 1;
+						answered = true;
+						askER();
+						return;
+					}
+					survey.setMotivResponse(questionNum, rating.getRating());
+					questionNum--;
+					rating.setRating(survey.getMotivResponses()[questionNum]);
+					answered = true;
+					questionTextView.setText(survey
+							.getMotivQuestion(questionNum));
+					nextButton.setText(R.string.next);
 
+				}
+			});
 		}
 	}
 
@@ -232,12 +307,12 @@ public class SurveyActivity extends Activity {
 			}
 
 			fos.write("=============\n".getBytes());
-			
-			//timestamp
+
+			// timestamp
 			Date date = new Date();
 			Timestamp timestamp = new Timestamp(date.getTime());
 			fos.write((timestamp.toString() + "\n").getBytes());
-			
+
 			// write MA responses to file
 			fos.write("\nMomentary affect items:\n".getBytes());
 			String[] codes = survey.getMACodes();
@@ -245,7 +320,7 @@ public class SurveyActivity extends Activity {
 			for (int i = 0; i < codes.length; i++) {
 				fos.write((codes[i] + ": " + responses[i] + "\n").getBytes());
 			}
-			
+
 			// write ER responses to file
 			fos.write("\nEmotion regulation items:\n".getBytes());
 			codes = survey.getERCodes();
@@ -260,7 +335,7 @@ public class SurveyActivity extends Activity {
 			for (int i = 0; i < codes.length; i++) {
 				fos.write((codes[i] + ": " + responses[i] + "\n").getBytes());
 			}
-			
+
 			fos.write("=============\n".getBytes());
 			Log.i("File", "Finished writing to file");
 			fos.close();

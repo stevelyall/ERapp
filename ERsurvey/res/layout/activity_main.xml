@@ -9,22 +9,22 @@
     tools:context="ca.stevenlyall.ersurvey.MainActivity" >
 
     <TextView
-        android:id="@+id/questionTextView"
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:text="@string/hello_world" />
+        android:text="@string/welcome" />
 
     <Button
-        android:id="@+id/quitButton"
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/questionTextView"
-        android:layout_below="@+id/questionTextView"
-        android:layout_marginTop="48dp"
+        android:layout_below="@+id/welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
         android:onClick="startSurvey"
-        android:text="Button" />
+        android:text="@string/next" />
 
 </RelativeLayout>

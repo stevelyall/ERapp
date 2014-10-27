@@ -1265,8 +1265,6 @@ containing a value of this type.
         public static final int normal=0x7f050000;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
-        public static final int questionTextView=0x7f05003c;
-        public static final int quitButton=0x7f05003d;
         public static final int radio=0x7f05002f;
         public static final int rating=0x7f050044;
         public static final int ratinglayout=0x7f050043;
@@ -1285,6 +1283,7 @@ containing a value of this type.
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int split_action_bar=0x7f05001e;
+        public static final int startButton=0x7f05003d;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
         public static final int tableRow1=0x7f050042;
@@ -1294,6 +1293,7 @@ containing a value of this type.
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
+        public static final int welcome=0x7f05003c;
         public static final int withText=0x7f05000c;
     }
     public static final class integer {
@@ -1403,6 +1403,7 @@ containing a value of this type.
         public static final int next=0x7f0a0011;
         public static final int quit=0x7f0a0014;
         public static final int thank_you=0x7f0a0013;
+        public static final int welcome=0x7f0a0015;
     }
     public static final class style {
         /** 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/quitButton"
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -17,7 +17,7 @@
         android:id="@+id/thankYouTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/quitButton"
+        android:layout_above="@+id/startButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="73dp"
         android:text="@string/thank_you"

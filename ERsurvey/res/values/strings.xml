@@ -9,5 +9,6 @@
     <string name="finish">Finish</string>
     <string name="thank_you">Thank you!</string>
     <string name="quit">Quit</string>
+    <string name="welcome">Welcome. Touch Next when you are ready.</string>
 
 </resources>

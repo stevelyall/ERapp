@@ -420,8 +420,6 @@ int id none 0x7f050010
 int id normal 0x7f050000
 int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
-int id questionTextView 0x7f05003c
-int id quitButton 0x7f05003d
 int id radio 0x7f05002f
 int id rating 0x7f050044
 int id ratinglayout 0x7f050043
@@ -440,6 +438,7 @@ int id showCustom 0x7f050007
 int id showHome 0x7f050004
 int id showTitle 0x7f050006
 int id split_action_bar 0x7f05001e
+int id startButton 0x7f05003d
 int id submit_area 0x7f050039
 int id tabMode 0x7f050002
 int id tableRow1 0x7f050042
@@ -449,6 +448,7 @@ int id title 0x7f05002b
 int id top_action_bar 0x7f050020
 int id up 0x7f050021
 int id useLogo 0x7f050003
+int id welcome 0x7f05003c
 int id withText 0x7f05000c
 int integer abc_max_action_buttons 0x7f090000
 int layout abc_action_bar_decor 0x7f030000
@@ -501,6 +501,7 @@ int string hello_world 0x7f0a000e
 int string next 0x7f0a0011
 int string quit 0x7f0a0014
 int string thank_you 0x7f0a0013
+int string welcome 0x7f0a0015
 int style AppBaseTheme 0x7f0b008b
 int style AppTheme 0x7f0b008c
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0b0063
