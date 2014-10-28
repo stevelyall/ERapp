@@ -1,0 +1,12 @@
+package ca.stevenlyall.ersurvey;
+
+import android.content.BroadcastReceiver;
+
+public class Notify extends BroadcastReceiver {
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+	    // TODO Auto-generated method stub
+	}
+
+}

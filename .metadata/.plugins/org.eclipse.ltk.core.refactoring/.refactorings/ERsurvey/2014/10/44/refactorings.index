@@ -8,3 +8,10 @@
 1414380063465	Delete element
 1414424609113	Rename field 'questionTextView'
 1414424685631	Rename field 'quitButton'
+1414441286717	Delete element
+1414441541867	Delete element
+1414509864680	Rename type 'MainActivity'
+1414509883685	Rename type 'SetupActivity'
+1414518045973	Delete element
+1414519923739	Rename resource 'activity_main.xml'
+1414519937590	Rename resource 'activity_setup.xml'
